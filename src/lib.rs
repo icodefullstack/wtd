@@ -9,7 +9,7 @@ pub fn main_js() -> Result<(), JsValue> {
     console_error_panic_hook::set_once();
     let window = web_sys::window().unwrap();
     let document = window.document().unwrap();
-    let mut depth = 2;
+    let mut depth = 3;
     let canvas = document
         .get_element_by_id("canvas")
         .unwrap()
@@ -48,7 +48,9 @@ fn sierpinski(context:&web_sys::CanvasRenderingContext2d,
             let pl = midpoint(points[0], points[2]);
             let pr = midpoint(points[1], points[2]);
             
-            sierpinski(&context, [pt, pl, pr],depth);
+            sierpinski(&context, [pt, points[1], pr],depth);
+            sierpinski(&context, [pr, pl, points[2]],depth);
+            sierpinski(&context, [points[0], pt, pl],depth);
          }
 
 }
