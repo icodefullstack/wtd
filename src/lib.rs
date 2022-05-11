@@ -9,6 +9,7 @@ pub fn main_js() -> Result<(), JsValue> {
     console_error_panic_hook::set_once();
     let window = web_sys::window().unwrap();
     let document = window.document().unwrap();
+    let mut depth = 2;
     let canvas = document
         .get_element_by_id("canvas")
         .unwrap()
@@ -21,12 +22,35 @@ pub fn main_js() -> Result<(), JsValue> {
         .dyn_into::<web_sys::CanvasRenderingContext2d>()
         .unwrap();
 
-        draw_triangle(&context, [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)]);
+        
+        sierpinski(&context, [(300.0, 0.0), (0.0, 600.0), (600.0, 600.0)], depth);
 
-        draw_triangle(&context, [(300.0, 0.0), (150.0, 300.0), (450.0, 300.0)]);
-        draw_triangle(&context, [(150.0, 300.0), (0.0, 600.0), (300.0, 600.0)]);
-        draw_triangle(&context, [(450.0, 300.0), (300.0, 600.0), (600.0, 600.0)]);
     Ok(())
+}
+
+fn midpoint(p1:(f64, f64),p2:(f64,f64))->(f64, f64){
+    ((p1.0 + p2.0)/2.0, (p1.1 + p2.1)/2.0)
+}
+
+fn sierpinski(context:&web_sys::CanvasRenderingContext2d,
+     points:[(f64,f64); 3], depth:i8){
+
+        let points_str = format!("{:?}", points);
+        console::log_1(&JsValue::from_str(&points_str));
+
+        draw_triangle(&context, [points[0], points[1], points[2]]);
+
+        let depth_str = format!("za depth is {}", depth);
+         if depth > 0{
+            console::log_1(&JsValue::from_str(&depth_str));
+            let depth = depth-1;
+            let pt = midpoint(points[0], points[1]);
+            let pl = midpoint(points[0], points[2]);
+            let pr = midpoint(points[1], points[2]);
+            
+            sierpinski(&context, [pt, pl, pr],depth);
+         }
+
 }
 
 
