@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>My Rust + Webpack project!</title>
-  </head>
-  <body>
-    <canvas id="canvas" tabindex="0" height="600" width="600">Your browser does not support the canvas.</canvas>
-    <script src="index.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>My Rust + Webpack project!</title>
+</head>
+<body>
+  <canvas id="canvas" tabindex="0" height="600" width="600">
+    Your browser does not support the Canvas.
+  </canvas>
+
+  <script src="index.js"></script>
+  <img id="zaimg" src="Idle (1).png" />
+  <script>
+    var img = document.getElementById('zaimg');
+    img.onload =  ()=>{test_img();}
+    function test_img(){
+      console.log("img onload ....3 ")
+    }
+  </script>
+</body>
 </html>
