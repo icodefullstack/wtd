@@ -26,6 +26,8 @@ lto = true
 wasm-bindgen = "0.2.78"
 rand = "0.8.5"
 getrandom = { version = "0.2.3", features = ["js"] }
+futures = "0.3.18"
+wasm-bindgen-futures = "0.4.28"
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
 # compared to the default allocator's ~10K. However, it is slower than the default
@@ -54,6 +56,4 @@ console_error_panic_hook = "0.1.7"
 # These crates are used for running unit tests.
 [dev-dependencies]
 wasm-bindgen-test = "0.3.28"
-futures = "0.3.18"
 js-sys = "0.3.55"
-wasm-bindgen-futures = "0.4.28"
